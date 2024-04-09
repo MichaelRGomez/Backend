@@ -1,0 +1,22 @@
+import dotenv from 'dotenv';
+import express, {Request, Response} from "express";
+
+//routes
+import securityRoutes from './authentication/routes';
+import contentRoutes from './content/routes';
+
+//Loading environment variables
+dotenv.config();
+
+//Express app
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+//Defining routes
+app.use('/', securityRoutes);
+app.use('/', contentRoutes);
+
+//Starting the server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
