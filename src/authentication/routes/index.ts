@@ -1,10 +1,9 @@
 import express, {Request, Response, Router } from 'express';
+import { login } from '../controller/security';
 
 const router: Router = express.Router();
 
 //Defining routes
-router.get('/bouncer/login', (req: Request, res: Response) => {
-    res.send('<p>Reached</p>');
-});
+router.post('/login', login);
 
 export default router;
