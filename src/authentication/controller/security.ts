@@ -6,7 +6,8 @@ export const login = (req: Request, res: Response) => {
         // get the username and password from the request body
         const { username, password } = req.body;
 
-        // // get the ip address of the user
+        console.log(`\nUsername: ${username}\nPassword: ${password}\n`);
+
         // const ip_address = getClientIP(req);
 
         // // authenticate the request and get the session
