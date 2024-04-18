@@ -7,27 +7,9 @@ import cors from "cors";
 
 //TODO: handlers will be refactored later
 import { getGif, getImage, getVideo } from './handlers/media';
-
-enum mediaTypeEnum {
-    png = ".png",
-    jpg = ".jpg",
-    jpeg = ".jpeg",
-    gif = ".gif",
-    mp4 = ".mp4",
-}
-
+import { getPost } from './handlers/post';
 
 //Free Space
-const post = {
-    "id": 1,
-    "type": mediaTypeEnum.png,
-    "title" : "They sap Mana",
-    "alt": "an warmly painted image of a tomato",
-    "path" : "mana_sapper.png",
-    "description" : "A painting made when I learning painting",
-    "date" : "18/04/2024",
-    "nsfw": false
-}
 
 //Express app
 const app = express();
@@ -41,25 +23,12 @@ const frontend = process.env.FRONT_END_DOMAIN;
 app.use(cors({origin: frontend}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(DIR, 'public')));
+app.use('/media', express.static(path.join(DIR, 'public'))); //this needs a middleware to sanatize the request TODO::
 
 //Defining routes
 
 //Media handlers TODO: remember to put sanitization middleware on these routes
-app.get('/image/:filename', getImage);
-app.get('/gif/:filename', getGif);
-app.get("/video/:filename", getVideo);
-
-app.get("/post/:id", (req: Request, res: Response) => {
-    try{
-        const logTime = new Date().toString();
-        console.log("📤 Successfully Processed Post Request : " + logTime);
-        return res.status(200).json(post);
-    } catch (error: any){
-        console.log(error);
-        res.status(500).json("some ting wong!");
-    }
-});
+app.get("/post/:id", getPost);
 
 app.get('/hello', (req: Request, res: Response) => {
     return res.status(200).send("Hello World!");
