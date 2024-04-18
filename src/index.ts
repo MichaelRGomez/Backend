@@ -2,6 +2,10 @@ import 'dotenv/config';
 import express, {Request, Response} from "express";
 import bodyParser from 'body-parser';
 import path from 'path';
+import cors from "cors";
+
+
+//TODO: handlers will be refactored later
 import { getGif, getImage, getVideo } from './handlers/media';
 
 //Free Space
@@ -19,10 +23,12 @@ const app = express();
 //env
 const PORT = process.env.PORT || 3000;
 const DIR = process.env.DIR as string;
+const frontend = process.env.FRONT_END_DOMAIN as string;
 
 //adding necessary middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({origin: frontend, credentials: true}));
 app.use(express.static(path.join(DIR, 'public')));
 
 //Defining routes
