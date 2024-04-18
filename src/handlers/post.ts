@@ -31,6 +31,28 @@ const post_2 = {
     "nsfw": false
 }
 
+const post_3 = {
+    "id": 2,
+    "type": mediaTypeEnum.gif,
+    "title" : "The World Spinning",
+    "alt": "a gif very pixelated of the world spinning with stars in the background",
+    "path" : "gifs/world.gif",
+    "description" : "A place holder image",
+    "date" : "18/04/2024",
+    "nsfw": false
+}
+
+const post_4 = {
+    "id": 2,
+    "type": mediaTypeEnum.mp4,
+    "title" : "Clove's Voice",
+    "alt": "A TikTok reacting to Clove from Valorant's voice being scottish",
+    "path" : "videos/funny.mp4",
+    "description" : "A place holder image",
+    "date" : "18/04/2024",
+    "nsfw": false
+}
+
 
 //handler
 export const getPost = async (req: Request, res: Response) => {
@@ -38,12 +60,19 @@ export const getPost = async (req: Request, res: Response) => {
 
         let post = null
 
-        if(req.params.id == "1") {
-            post = post_1;
-        } else if (req.params.id == "2") {
-            post = post_2;
-        } else {
-            return res.status(404).json({message: "no post"});
+        const id = parseInt(req.params.id);
+
+        switch(id){
+            case 1:
+                post = post_1; break;
+            case 2:
+                post = post_2; break;
+            case 3:
+                post = post_3; break;
+            case 4:
+                post = post_4; break;
+            default:
+                return res.status(404).json({message: "no post"});
         }
 
         const logTime = new Date().toString();
