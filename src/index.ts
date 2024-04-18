@@ -11,10 +11,12 @@ import { getGif, getImage, getVideo } from './handlers/media';
 //Free Space
 const post = {
     "id": 1,
-    "path" : "mana_sapper.png",
     "title" : "They sap Mana",
-    "date" : "18/04/2024",
+    "alt": "an warmly painted image of a tomato",
+    "path" : "mana_sapper.png",
     "description" : "A painting made when I learning painting",
+    "date" : "18/04/2024",
+    "nsfw": false
 }
 
 //Express app
