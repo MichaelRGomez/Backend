@@ -8,9 +8,19 @@ import cors from "cors";
 //TODO: handlers will be refactored later
 import { getGif, getImage, getVideo } from './handlers/media';
 
+enum mediaTypeEnum {
+    png = ".png",
+    jpg = ".jpg",
+    jpeg = ".jpeg",
+    gif = ".gif",
+    mp4 = ".mp4",
+}
+
+
 //Free Space
 const post = {
     "id": 1,
+    "type": mediaTypeEnum.png,
     "title" : "They sap Mana",
     "alt": "an warmly painted image of a tomato",
     "path" : "mana_sapper.png",
@@ -25,12 +35,12 @@ const app = express();
 //env
 const PORT = process.env.PORT || 3000;
 const DIR = process.env.DIR as string;
-const frontend = process.env.FRONT_END_DOMAIN as string;
+const frontend = process.env.FRONT_END_DOMAIN;
 
 //adding necessary middleware
+app.use(cors({origin: frontend}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({origin: frontend, credentials: true}));
 app.use(express.static(path.join(DIR, 'public')));
 
 //Defining routes
